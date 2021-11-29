@@ -1,0 +1,77 @@
+aspen-mesh-controlplane:
+  # The name of the cluster where Aspen Mesh is being installed.
+  clusterId: cluster1
+  userAuth:
+    # type can be set to `jwt` or `none`. JWT authentication is highly recommended.
+    type: none
+
+jaeger:
+  enabled: false
+
+aspen-mesh-dashboard:
+  enabled: false
+
+aspen-mesh-secure-ingress:
+  enabled: false
+
+traffic-claim-enforcer:
+  enabled: false
+
+aspen-mesh-metrics-collector:
+  enabled: true
+
+aspen-mesh-event-storage:
+  enabled: true
+
+cert-manager:
+  enabled: false
+
+external-dns:
+  enabled: false
+
+citadel:
+  enabled: true
+
+aspen-mesh-packet-inspector:
+  enabled: true
+  analysis:
+    address: aspen-mesh-analysis-emulator.analysis-emulator:21000
+
+aspen-mesh-packet-inspector:
+  enabled: true
+  nodePort: 31672
+  gcb:
+    address: aspen-mesh-gcbemulator.gcbemulator:21000
+    maxConnections: 1
+    maxConcurrentMessages: 5
+    reconnectTime: 5
+    maxErrorRetries: 3
+    verbose: false
+  tapfilterBufferSize: 5kb
+  tapfilterTimeout: 1000ms
+  macAddress: 00:00:00:00:00:00
+  daemonSetBufferMemoryPercent: 50
+
+pilot:
+  autoscaleMin: 1
+  autoscaleMax: 2
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2048Mi
+
+global:
+  certificateCustomFields: true
+  proxy:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 2000m
+        memory: 1024Mi
+  meshID: mesh1
+  multiCluster:
+    clusterName: cluster1
+  network: network1
